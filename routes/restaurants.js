@@ -23,4 +23,24 @@ router.post('/', ensureAuth, async (req,res) => {
     
 })
 
+//@description show all restuarants
+// @route GET/restaurants
+router.get('/', ensureAuth, async (req,res) => {
+    try {
+        const restuarants = await Restaurant.find({ status: 'public'})
+            .populate('user')
+            .sort({ createdAt: 'desc'})
+            .lean()
+        res.render('restaurants/index', {
+            restuarants,
+        })
+
+    }catch (err) {
+        console.error(err)
+        res.render('error/500')
+    }
+
+    
+})
+
 module.exports = router
