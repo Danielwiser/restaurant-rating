@@ -1,3 +1,27 @@
 <h1>Dashboard</h1>
 <h3>Welcome {{name}}</h3>
 <p>Find your favorite restaurants here</p>
+{{#if restaurants}}
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Status</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            {{#each restaurants}}
+             <tr>
+                <td><a href="/restaurants/{{_id}}">{{name}}</a></td>
+                <td>{{createdAt}}</td>
+                <td><span class="dash-status">{{status}}</span></td>
+             </tr>
+            {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <p>You have not rated any restaurant</p>
+
+{{/if}}

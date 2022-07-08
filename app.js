@@ -20,9 +20,18 @@ dotenv.config({ path: './config/config.env'}) // inside this directory is where 
 // passport config 
 require('./config/passport')(passport)
 
+
 connectDB()
 //initialize our app
 const app = express()
+
+
+// body parser
+// this will help get data from req.body
+app.use(express.urlencoded({ extended: false}))
+app.use(express.json())
+
+// logging
 if (process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))
 }
@@ -50,6 +59,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 // routes
 app.use('/', require('./routes/index'))
 app.use('/', require('./routes/auth'))
+app.use('/restaurants', require('./routes/restaurants'))
 
 const PORT = process.env.PORT || 3000
 
